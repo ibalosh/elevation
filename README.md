@@ -2,9 +2,9 @@
 
 *Solution details*
 
-[requirement details](./requirements.txt)
+See requirements in `requirements.txt`
 
-* App loads a map with default location set to the user's current location. 
+* App loads the map with the default location set to the user's current location. 
 * User can change the location by **clicking on the map** or by **entering the coordinates**.
 * Elevation is calculated after submitting the coordinates.
 * Latest elevation submitted is displayed.
