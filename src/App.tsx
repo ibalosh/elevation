@@ -7,7 +7,7 @@ import Button from "./components/Button";
 import Map from "./components/map/Map";
 import UserInput from "./components/UserInput";
 import Elevation from "./components/Elevation";
-import History from "./components/ElevationsHistory.tsx";
+import History from "./components/ElevationsHistory";
 
 export type Coordinate = {
   lat: number;
@@ -17,8 +17,8 @@ export type Coordinate = {
 function App() {
   const { geoLocation, error } = useMyGeolocation();
   const [location, setLocation] = useState<Coordinate>({lat: 0, lng: 0});
-
   const [elevations, setElevations] = useState<number[]>([]);
+  const showElevations = elevations.length > 0;
 
   function handlePositionChange(latLng : Coordinate) {
     setLocation(prevState => ({...prevState, ...latLng}));
@@ -27,7 +27,7 @@ function App() {
   function handleSubmit() {
     fetchElevation(location.lat, location.lng)
       .then(data => {
-        setElevations(prevState => [data.results[0].elevation, ...prevState]);
+        setElevations(prevState => [data, ...prevState]);
       })
       .catch(error => {
         alert(`Error occurred: ${error.message}`);
@@ -57,7 +57,7 @@ function App() {
 
       <Elevation elevation={elevations.length > 0 ? elevations[elevations.length-1] : null} />
       <Button onSubmit={handleSubmit}>Submit</Button>
-      {elevations.length > 0 && <History elevations={elevations} />}
+      {showElevations && <History elevations={elevations} />}
     </>
   )
 }

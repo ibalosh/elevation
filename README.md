@@ -2,6 +2,18 @@
 
 *Solution details*
 
+[requirement details](./requirements.txt)
+
+* App loads a map with default location set to the user's current location. 
+* User can change the location by **clicking on the map** or by **entering the coordinates**.
+* Elevation is calculated after submitting the coordinates.
+* Latest elevation submitted is displayed.
+* History of elevation submissions is displayed.
+
+[Leaflet map library](https://leafletjs.com/) was used with [react leatflet wrapper](https://react-leaflet.js.org/) to display the map and
+get the coordinates of the clicked location. 
+
+Initial location is read from the browser's geolocation API.
 
 # Notes 
 
@@ -13,20 +25,8 @@ CORS restriction policies by [opentopodata](https://www.opentopodata.org/).
 To overcome this, we can use a proxy server to adjust the response of the server for our domain, and therefore
 pass the CORS validation. For this, I have used [cors-anywhere](https://github.com/Rob--W/cors-anywhere) proxy server.
 
-# Solution
+# Further improvement ideas
 
-Leaflet map library was used with react leatflet wrapper to display the map and
-get the coordinates of the clicked location.
-
-Initial location is read from the browser's geolocation API if possible to set sensible default.
-
-# Todo
-
-* User can submit latitude and longitude of a location. Either by hand or clicking on a map.
-* User sees elevation of the clicked location
-* For fetching elevation data use https://www.opentopodata.org/#public-api
-* User interface should run in browser
-* Source code should be included
-* Send result per Mail or make public available on git(lab/hub/whatever)
-
- 
+* error handling can be improved instead of simple alert
+* database can be used to store the history
+* more tests for edge cases like validation of coordinates can be added

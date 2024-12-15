@@ -10,5 +10,11 @@ export async function fetchElevation(lat: number, lon: number) {
     throw new Error(`Error occurred: ${response.status}`);
   }
 
-  return await response.json();
+  const data = await response.json()
+
+  if (!data.results || !data.results[0].elevation) {
+    throw new Error('Invalid API response');
+  }
+
+  return await data.results[0].elevation;
 }

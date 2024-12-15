@@ -62,11 +62,9 @@ describe('App Component', () => {
     const latitudeInput = screen.getByLabelText(/latitude/i);
     const longitudeInput = screen.getByLabelText(/longitude/i);
 
-    // Simulate invalid input
     fireEvent.change(latitudeInput, { target: { value: 'abc' } });
     fireEvent.change(longitudeInput, { target: { value: '123abc' } });
 
-    // Ensure inputs do not accept invalid values
     expect(latitudeInput).not.toHaveValue('abc');
     expect(longitudeInput).not.toHaveValue('123abc');
 
@@ -75,9 +73,7 @@ describe('App Component', () => {
   });
 
   test('shows correct elevation on submit', async () => {
-    mockFetchElevation.mockResolvedValueOnce({
-      results: [{ elevation: 100 }],
-    });
+    mockFetchElevation.mockResolvedValueOnce(100);
 
     render(<App />);
 
@@ -97,5 +93,29 @@ describe('App Component', () => {
 
     const elevationElement = await screen.findByText(/Last calculated elevation is: 100/i);
     expect(elevationElement).toBeInTheDocument();
+  });
+
+  test('displays a history of fetched elevations', async () => {
+    // Mock the fetchElevation function to return different elevations
+    mockFetchElevation
+      .mockResolvedValueOnce(100)
+      .mockResolvedValueOnce(200);
+
+    render(<App />);
+
+    const submitButton = screen.getByText(/submit/i);
+
+    // First fetch
+    fireEvent.click(submitButton);
+    await screen.findByText(/Last calculated elevation/i);
+
+    // Second fetch
+    fireEvent.click(submitButton);
+    await screen.findByText(/Last calculated elevation/i);
+
+    const historyItems = screen.getAllByRole('listitem');
+    expect(historyItems).toHaveLength(2);
+    expect(historyItems[0]).toHaveTextContent("200");
+    expect(historyItems[1]).toHaveTextContent("100");
   });
 });
