@@ -8,7 +8,7 @@ type Props = {
   location: Coordinate;
 }
 
-export default function Inputs({location, onChangeLocation}: Props) {
+export default function UserInput({location, onChangeLocation}: Props) {
   return (
     <div className="input-container">
       <Input

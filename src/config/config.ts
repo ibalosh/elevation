@@ -1,3 +1,8 @@
+const defaultCoodrinates = {
+  lat: 48.2081,
+  lng: 16.3713
+}
+
 const proxyUrl = "http://localhost:8080";
 const openTopoDataApi = "https://api.opentopodata.org/v1";
 const useProxy = true;
@@ -12,5 +17,4 @@ const datasets: { [key: string]: string } = {
 const openTopoDataApiUrl = useProxy ?
   `${proxyUrl}/${openTopoDataApi}` : openTopoDataApi;
 
-export {datasets};
-export { openTopoDataApiUrl };
+export {datasets, openTopoDataApiUrl, defaultCoodrinates};

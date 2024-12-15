@@ -3,9 +3,10 @@ import {fetchElevation} from "./scripts/http";
 import {useEffect, useState} from "react";
 import {useMyGeolocation} from "./hooks/useMyGeolocation";
 
-import Inputs from "./components/Inputs";
-import Map from "./components/map/Map";
 import Button from "./components/Button";
+import Map from "./components/map/Map";
+import UserInput from "./components/UserInput";
+import {defaultCoodrinates} from "./config/config.ts";
 
 export type Coordinate = {
   lat: number;
@@ -14,7 +15,7 @@ export type Coordinate = {
 
 function App() {
   const { geoLocation, error } = useMyGeolocation();
-  const [location, setLocation] = useState<Coordinate>({lat: 0, lng: 0});
+  const [location, setLocation] = useState<Coordinate>(defaultCoodrinates);
 
   function handlePositionChange(latLng : Coordinate) {
     setLocation(prevState => ({...prevState, ...latLng}));
@@ -31,6 +32,9 @@ function App() {
     if (!error && geoLocation) {
       setLocation(geoLocation);
     }
+    else if (error) {
+      console.warn(error);
+    }
   }, [geoLocation, error]);
 
   return (
@@ -43,7 +47,7 @@ function App() {
         onChangeLocation={handlePositionChange}
       />
 
-      <Inputs
+      <UserInput
         onSubmit={handleSubmit}
         onChangeLocation={handlePositionChange}
         location={location}
