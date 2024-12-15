@@ -1,5 +1,7 @@
 # Elevation calculator
 
+![](https://github.com/ibalosh/elevation/actions/workflows/testing.yml/badge.svg)
+
 *Solution details*
 
 See requirements in `requirements.txt`

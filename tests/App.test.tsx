@@ -79,7 +79,7 @@ describe('App Component', () => {
 
     const latitudeInput = screen.getByLabelText(/latitude/i);
     const longitudeInput = screen.getByLabelText(/longitude/i);
-    const submitButton = screen.getByText(/submit/i);
+    const submitButton = screen.getByText(/calculate elevation/i);
 
     fireEvent.change(latitudeInput, { target: { value: '100.5' } });
     fireEvent.change(longitudeInput, { target: { value: '-100.5' } });
@@ -103,7 +103,7 @@ describe('App Component', () => {
 
     render(<App />);
 
-    const submitButton = screen.getByText(/submit/i);
+    const submitButton = screen.getByText(/calculate elevation/i);
 
     // First fetch
     fireEvent.click(submitButton);

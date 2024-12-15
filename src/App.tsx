@@ -56,7 +56,7 @@ function App() {
       />
 
       <Elevation elevation={elevations.length > 0 ? elevations[elevations.length-1] : null} />
-      <Button onSubmit={handleSubmit}>Submit</Button>
+      <Button onSubmit={handleSubmit}>Calculate elevation</Button>
       {showElevations && <History elevations={elevations} />}
     </>
   )

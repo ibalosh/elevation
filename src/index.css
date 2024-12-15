@@ -34,9 +34,12 @@ button {
   cursor: pointer;
   transition: background-color 0.5s;
   margin: 1rem;
+  border: 1px solid #9c9a9a;
 }
 button:hover {
-  background-color: #bfc1c3;
+  background-color: #d3d5d6;
+  transition: background-color 0.5s;
+  border: 1px solid #7c7c7c;
 }
 button:focus,
 button:focus-visible {
@@ -52,7 +55,14 @@ input {
   border-radius: 3px;
 }
 
+input:hover {
+  background-color: #f6f4f4;
+}
+
 .coordinates-container {
   padding: 1rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
