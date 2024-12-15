@@ -1,12 +1,12 @@
 import React from "react";
 
 type Props = {
-  handleClickAction: () => void;
+  onSubmit: () => void;
   children: React.ReactNode;
 }
 
-export default function Button({handleClickAction, children}: Props) {
+export default function Button({onSubmit, children}: Props) {
   return (
-    <button onClick={handleClickAction}>{children}</button>
+    <button onClick={onSubmit}>{children}</button>
   )
 }

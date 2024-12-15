@@ -1,11 +1,10 @@
-import {Dispatch, SetStateAction, useEffect, useRef} from "react";
+import {useEffect, useRef} from "react";
 import L, {LatLngLiteral, Marker} from "leaflet";
-import {Coordinate} from "../App.tsx";
 
 export function useMap(
   mapId: string,
   coordinate: LatLngLiteral,
-  setLocation: Dispatch<SetStateAction<Coordinate>>
+  updateLocation: (lat: number, lng: number) => void
 ) {
   let map: L.Map;
   const currentMarker = useRef<Marker | null>(null);
@@ -23,8 +22,8 @@ export function useMap(
     map.on("click", (e) => {
       const { lat, lng } = e.latlng;
       currentMarker.current?.setLatLng([lat, lng]);
-      setLocation((prevState: Coordinate) => ({...prevState,...{lat, lng}}));
-      console.log(`Latitude: ${lat}, Longitude: ${lng}`);
+      updateLocation(lat, lng);
+      console.log("Location updated: ", {lat, lng});
     });
   }
 
