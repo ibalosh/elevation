@@ -13,6 +13,13 @@ CORS restriction policies by [opentopodata](https://www.opentopodata.org/).
 To overcome this, we can use a proxy server to adjust the response of the server for our domain, and therefore
 pass the CORS validation. For this, I have used [cors-anywhere](https://github.com/Rob--W/cors-anywhere) proxy server.
 
+# Solution
+
+Leaflet map library was used with react leatflet wrapper to display the map and
+get the coordinates of the clicked location.
+
+Initial location is read from the browser's geolocation API if possible to set sensible default.
+
 # Todo
 
 * User can submit latitude and longitude of a location. Either by hand or clicking on a map.

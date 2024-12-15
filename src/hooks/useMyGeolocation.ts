@@ -1,7 +1,7 @@
 import {useEffect, useState} from "react";
 import {Coordinate} from "../App.tsx";
 
-export const useGeolocation = (): {
+export const useMyGeolocation = (): {
   geoLocation: Coordinate | null,
   error: string | null
 } => {
@@ -11,11 +11,10 @@ export const useGeolocation = (): {
   useEffect(() => {
     if (navigator.geolocation) {
       const success = (position: GeolocationPosition) => {
-        const latitude = position.coords.latitude;
-        const longitude = position.coords.longitude;
+        const latitude = parseFloat(position.coords.latitude.toFixed(10));
+        const longitude = parseFloat(position.coords.longitude.toFixed(10));
 
         setGeoLocation({lat: latitude, lng: longitude});
-        console.log(`Latitude: ${latitude} °, Longitude: ${longitude} °`);
       }
 
       const error = (error: GeolocationPositionError) => {
@@ -25,7 +24,6 @@ export const useGeolocation = (): {
       navigator.geolocation.getCurrentPosition(success, error);
     } else {
       setError('Geolocation is not supported by this browser.');
-      return;
     }
   },[]);
 

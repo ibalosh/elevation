@@ -1,23 +1,23 @@
 import './App.css'
 import {fetchElevation} from "./scripts/http.ts";
 import {useEffect, useState} from "react";
-import {useGeolocation} from "./hooks/useGeolocation.ts";
+import {useMyGeolocation} from "./hooks/useMyGeolocation.ts";
+
 import Inputs from "./components/Inputs.tsx";
-import Map from "./components/Map.tsx";
+import Map from "./components/map/Map.tsx";
+import Button from "./components/Button.tsx";
 
 export type Coordinate = {
-  lat: number,
-  lng: number
+  lat: number;
+  lng: number;
 }
 
 function App() {
-  const { geoLocation, error } = useGeolocation();
+  const { geoLocation, error } = useMyGeolocation();
   const [location, setLocation] = useState<Coordinate>({lat: 0, lng: 0});
-  const [showMap, setShowMap] = useState(true);
 
-  function handleChangeLocation(value: number, type: "longitude" | "latitude") {
-    const partialCoordinate: Partial<Coordinate> = type === "latitude" ? {lat: value} : {lng: value};
-    setLocation(prevState => ({...prevState, ...partialCoordinate}));
+  function handlePositionChange(latLng : Coordinate) {
+    setLocation(prevState => ({...prevState, ...latLng}));
   }
 
   function handleSubmit() {
@@ -34,21 +34,22 @@ function App() {
   }, [geoLocation, error]);
 
   return (
-    <div>
-      <h1>Leaflet Map Example</h1>
-      <p>Choose longitude and altitude and click submit to get elevation.</p>
-      {showMap && <Map
-        onSubmit={handleSubmit}
-        onChangeLocation={handleChangeLocation}
-        location={location}
-      />}
+    <>
+      <h1>Elevation calculator app</h1>
+      <p>Choose longitude and altitude by clicking on map, or by setting input values.</p>
 
-      {!showMap && <Inputs
-        onSubmit={handleSubmit}
-        onChangeLocation={handleChangeLocation}
+       <Map
         location={location}
-      />}
-    </div>
+        onChangeLocation={handlePositionChange}
+      />
+
+      <Inputs
+        onSubmit={handleSubmit}
+        onChangeLocation={handlePositionChange}
+        location={location}
+      />
+      <Button onSubmit={handleSubmit}>Submit</Button>
+    </>
   )
 }
 

@@ -1,17 +1,16 @@
-type Props = {
-  coordinateType: "latitude" | "longitude";
-  onChangeInput: (elevation: number, type: "latitude" | "longitude") => void;
-  location: number;
-}
+import React, {ChangeEvent} from "react";
 
-export default function Input({coordinateType, location, onChangeInput}: Props) {
+type Props = {
+  onChangeInput: (e: ChangeEvent<HTMLInputElement>) => void;
+  location: number;
+} & React.InputHTMLAttributes<HTMLInputElement>;
+
+export default function Input({location, onChangeInput, ...props}: Props) {
   return (
     <input
-      name={coordinateType}
+      {...props}
       value={location}
-      onChange={(e) => onChangeInput(Number(e.target.value), coordinateType)}
-      type="number"
-      step="0.01"
+      onChange={onChangeInput}
     />
   )
 }
