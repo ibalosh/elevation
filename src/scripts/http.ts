@@ -1,4 +1,4 @@
-import {openTopoDataApiUrl, datasets} from "../config/config.ts";
+import {openTopoDataApiUrl, datasets} from "../config/config";
 
 export async function fetchElevation(lat: number, lon: number) {
   const apiEndpoint = `${openTopoDataApiUrl}/${datasets["Global"]}`;

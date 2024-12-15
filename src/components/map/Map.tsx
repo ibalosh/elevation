@@ -1,11 +1,11 @@
 import "leaflet/dist/leaflet.css";
 import "./Map.css";
 
-import { Coordinate } from "../../App.tsx";
+import { Coordinate } from "../../App";
 import { LatLng } from "leaflet";
-import LocationMarker from "./LocationMarker.tsx";
+import LocationMarker from "./LocationMarker";
 import { MapContainer, TileLayer } from 'react-leaflet';
-import RecenterMap from "./RecenterMap.tsx";
+import RecenterMap from "./RecenterMap";
 
 type Props = {
   location: Coordinate;

@@ -1,4 +1,4 @@
-import {Coordinate} from "../../App.tsx";
+import {Coordinate} from "../../App";
 import {LatLng} from "leaflet";
 import {Marker, Popup, useMapEvents} from "react-leaflet";
 import {useEffect, useState} from "react";

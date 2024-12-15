@@ -1,5 +1,5 @@
-import Input from "./Input.tsx";
-import {Coordinate} from "../App.tsx";
+import Input from "./Input";
+import {Coordinate} from "../App";
 import {ChangeEvent} from "react";
 
 type Props = {
@@ -13,7 +13,7 @@ export default function Inputs({location, onChangeLocation}: Props) {
     <div className="input-container">
       <Input
         location={location.lat}
-        name="latitude"
+        name="Latitude"
         type="number"
         step="0.01"
         onChangeInput={
@@ -22,7 +22,7 @@ export default function Inputs({location, onChangeLocation}: Props) {
       />
       <Input
         location={location.lng}
-        name="longitude"
+        name="Longitude"
         type="number"
         step="0.01"
         onChangeInput={

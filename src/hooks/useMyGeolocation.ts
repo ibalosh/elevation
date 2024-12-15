@@ -1,5 +1,5 @@
 import {useEffect, useState} from "react";
-import {Coordinate} from "../App.tsx";
+import {Coordinate} from "../App";
 
 export const useMyGeolocation = (): {
   geoLocation: Coordinate | null,

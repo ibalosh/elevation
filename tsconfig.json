@@ -1,7 +1,15 @@
 {
   "files": [],
+  "lib" : ["es2015"],
   "references": [
     { "path": "./tsconfig.app.json" },
     { "path": "./tsconfig.node.json" }
-  ]
+  ],
+  "compilerOptions": {
+    "jsx": "react-jsx", // Use the new JSX runtime introduced in React 17
+    "moduleResolution": "node",
+    "allowSyntheticDefaultImports": true,
+    "esModuleInterop": true,
+    "types": ["jest", "@testing-library/jest-dom"]
+  }
 }

@@ -1,11 +1,11 @@
 import './App.css'
-import {fetchElevation} from "./scripts/http.ts";
+import {fetchElevation} from "./scripts/http";
 import {useEffect, useState} from "react";
-import {useMyGeolocation} from "./hooks/useMyGeolocation.ts";
+import {useMyGeolocation} from "./hooks/useMyGeolocation";
 
-import Inputs from "./components/Inputs.tsx";
-import Map from "./components/map/Map.tsx";
-import Button from "./components/Button.tsx";
+import Inputs from "./components/Inputs";
+import Map from "./components/map/Map";
+import Button from "./components/Button";
 
 export type Coordinate = {
   lat: number;
