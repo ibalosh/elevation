@@ -10,7 +10,7 @@ type Props = {
 
 export default function UserInput({location, onChangeLocation}: Props) {
   return (
-    <div className="input-container">
+    <div className="coordinates-container">
       <Input
         location={location.lat}
         name="Latitude"

@@ -9,7 +9,6 @@ const mockFetchElevation = fetchElevation as jest.Mock;
 describe('App Component', () => {
   beforeEach(() => {
     jest.clearAllMocks();
-    globalThis.alert = jest.fn();
   });
 
   test('renders the inputs with default coordinates', () => {
@@ -44,7 +43,7 @@ describe('App Component', () => {
     expect(longitudeInput).toHaveValue(-10.10);
   });
 
-  test('updates coordinates when user changes input values', () => {
+  test('allows valid input values', () => {
     render(<App />);
 
     const latitudeInput = screen.getByLabelText(/latitude/i);
@@ -55,6 +54,24 @@ describe('App Component', () => {
 
     expect(latitudeInput).toHaveValue(1.1);
     expect(longitudeInput).toHaveValue(-1.1);
+  });
+
+  test('prevents invalid input values', () => {
+    render(<App />);
+
+    const latitudeInput = screen.getByLabelText(/latitude/i);
+    const longitudeInput = screen.getByLabelText(/longitude/i);
+
+    // Simulate invalid input
+    fireEvent.change(latitudeInput, { target: { value: 'abc' } });
+    fireEvent.change(longitudeInput, { target: { value: '123abc' } });
+
+    // Ensure inputs do not accept invalid values
+    expect(latitudeInput).not.toHaveValue('abc');
+    expect(longitudeInput).not.toHaveValue('123abc');
+
+    expect(latitudeInput).toHaveValue(0);
+    expect(longitudeInput).toHaveValue(0);
   });
 
   test('shows correct elevation on submit', async () => {
@@ -77,24 +94,8 @@ describe('App Component', () => {
 
     // Ensure the component is rendered before expecting
     await screen.findByText(/Elevation calculator app/i);
-    expect(globalThis.alert).toHaveBeenCalledWith('Elevation: 100');
-  });
 
-  test('prevents invalid input values', () => {
-    render(<App />);
-
-    const latitudeInput = screen.getByLabelText(/latitude/i);
-    const longitudeInput = screen.getByLabelText(/longitude/i);
-
-    // Simulate invalid input
-    fireEvent.change(latitudeInput, { target: { value: 'abc' } });
-    fireEvent.change(longitudeInput, { target: { value: '123abc' } });
-
-    // Ensure inputs do not accept invalid values
-    expect(latitudeInput).not.toHaveValue('abc');
-    expect(longitudeInput).not.toHaveValue('123abc');
-
-    expect(latitudeInput).toHaveValue(0);
-    expect(longitudeInput).toHaveValue(0);
+    const elevationElement = await screen.findByText(/Last calculated elevation is: 100/i);
+    expect(elevationElement).toBeInTheDocument();
   });
 });

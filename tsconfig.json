@@ -1,11 +1,12 @@
 {
   "files": [],
-  "lib" : ["es2015"],
   "references": [
     { "path": "./tsconfig.app.json" },
     { "path": "./tsconfig.node.json" }
   ],
   "compilerOptions": {
+    "target": "es6",
+    "lib": ["dom", "es2015"],
     "jsx": "react-jsx", // Use the new JSX runtime introduced in React 17
     "moduleResolution": "node",
     "allowSyntheticDefaultImports": true,

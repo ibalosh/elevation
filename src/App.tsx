@@ -6,7 +6,8 @@ import {useMyGeolocation} from "./hooks/useMyGeolocation";
 import Button from "./components/Button";
 import Map from "./components/map/Map";
 import UserInput from "./components/UserInput";
-import {defaultCoodrinates} from "./config/config.ts";
+import Elevation from "./components/Elevation";
+import History from "./components/ElevationsHistory.tsx";
 
 export type Coordinate = {
   lat: number;
@@ -15,25 +16,27 @@ export type Coordinate = {
 
 function App() {
   const { geoLocation, error } = useMyGeolocation();
-  const [location, setLocation] = useState<Coordinate>(defaultCoodrinates);
+  const [location, setLocation] = useState<Coordinate>({lat: 0, lng: 0});
+
+  const [elevations, setElevations] = useState<number[]>([]);
 
   function handlePositionChange(latLng : Coordinate) {
     setLocation(prevState => ({...prevState, ...latLng}));
   }
 
   function handleSubmit() {
-    fetchElevation(location.lat, location.lng).then(data => {
-        alert(`Elevation: ${data.results[0].elevation}`);
-      }
-    )
+    fetchElevation(location.lat, location.lng)
+      .then(data => {
+        setElevations(prevState => [data.results[0].elevation, ...prevState]);
+      })
+      .catch(error => {
+        alert(`Error occurred: ${error.message}`);
+      })
   }
 
   useEffect(() => {
     if (!error && geoLocation) {
       setLocation(geoLocation);
-    }
-    else if (error) {
-      console.warn(error);
     }
   }, [geoLocation, error]);
 
@@ -41,7 +44,6 @@ function App() {
     <>
       <h1>Elevation calculator app</h1>
       <p>Choose longitude and altitude by clicking on map, or by setting input values.</p>
-
        <Map
         location={location}
         onChangeLocation={handlePositionChange}
@@ -52,7 +54,10 @@ function App() {
         onChangeLocation={handlePositionChange}
         location={location}
       />
+
+      <Elevation elevation={elevations.length > 0 ? elevations[elevations.length-1] : null} />
       <Button onSubmit={handleSubmit}>Submit</Button>
+      {elevations.length > 0 && <History elevations={elevations} />}
     </>
   )
 }
