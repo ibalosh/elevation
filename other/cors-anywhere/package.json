@@ -1,0 +1,14 @@
+{
+  "name": "cors-anywhere",
+  "version": "1.0.0",
+  "main": "src/server.js",
+  "scripts": {
+    "run": "node src/server.js"
+  },
+  "dependencies": {
+    "cors-anywhere": "^0.4.4"
+  },
+  "author": "",
+  "license": "",
+  "description": ""
+}
