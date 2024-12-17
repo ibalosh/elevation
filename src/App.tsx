@@ -14,10 +14,15 @@ export type Coordinate = {
   lng: number;
 }
 
+export type Elevation = {
+    coordinate: Coordinate;
+    elevation: number;
+}
+
 function App() {
   const { geoLocation, error } = useMyGeolocation();
   const [location, setLocation] = useState<Coordinate>({lat: 0, lng: 0});
-  const [elevations, setElevations] = useState<number[]>([]);
+  const [elevations, setElevations] = useState<Elevation[]>([]);
   const showElevations = elevations.length > 0;
 
   function handlePositionChange(latLng : Coordinate) {
@@ -27,7 +32,14 @@ function App() {
   function handleSubmit() {
     fetchElevation(location.lat, location.lng)
       .then(data => {
-        setElevations(prevState => [data, ...prevState]);
+          const newElevations = [{coordinate: location, elevation: data}]
+          const prevElevations = elevations.map((item) => ({
+              coordinate: { ...item.coordinate },
+              elevation: item.elevation,
+          }));
+
+          newElevations.push(...prevElevations);
+          setElevations(newElevations);
       })
       .catch(error => {
         alert(`Error occurred: ${error.message}`);
@@ -55,7 +67,7 @@ function App() {
         location={location}
       />
 
-      <Elevation elevation={elevations.length > 0 ? elevations[elevations.length-1] : null} />
+      <Elevation elevation={elevations.length > 0 ? elevations[0].elevation : null} />
       <Button onSubmit={handleSubmit}>Calculate elevation</Button>
       {showElevations && <History elevations={elevations} />}
     </>
