@@ -46,3 +46,7 @@ Run commands can be found in `package.json` file.
 * database can be used to store the history (like suggested prisma)
 * more tests for edge cases like validation of coordinates can be added
 * app can be switched to Next.js for better performance
+
+# Next JS version
+
+Next.js version of the app can be found in the [next-elevation branch](https://github.com/ibalosh/elevation/pull/1)
