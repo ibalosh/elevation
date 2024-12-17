@@ -1,6 +1,9 @@
 import prisma from '@/lib/prismaClient';
 
 export async function createElevation(lat:number,lng: number, elevation: number) {
+  if (prisma === null)
+    return;
+
   try {
     const result = await prisma.elevation.create({
       data: {
@@ -18,6 +21,9 @@ export async function createElevation(lat:number,lng: number, elevation: number)
 }
 
 export async function getElevations(count: number) {
+  if (prisma === null)
+    return [];
+
   try {
     const allElevations = await prisma.elevation.findMany(
       {
