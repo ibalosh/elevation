@@ -1,0 +1,16 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model MostRecentElevation {
+  id        Int      @id @default(autoincrement())
+  elevation Float
+  lat       Float
+  lng       Float
+  createdAt DateTime @default(now())
+}

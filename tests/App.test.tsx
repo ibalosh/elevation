@@ -1,21 +1,21 @@
-import { render, screen, fireEvent } from '@testing-library/react';
-import App from '../src/App';
-import { fetchElevation } from '../src/scripts/http';
+import {render, screen, fireEvent, waitFor} from '@testing-library/react';
+import Dashboard from '../components/dashboard';
+import { fetchElevation } from '@/lib/http';
+import expect from "expect";
+import {getElevations} from "@/lib/prisma";
 
 // Mock the external API
-jest.mock('../src/scripts/http');
+jest.mock("../lib/http");
 const mockFetchElevation = fetchElevation as jest.Mock;
 
-describe('App Component', () => {
+describe('Dashboard Component', () => {
   beforeEach(() => {
     jest.clearAllMocks();
   });
 
-  test('renders the inputs with default coordinates', () => {
-    render(<App />);
-
-    expect(screen.getByText(/Elevation calculator app/i)).toBeInTheDocument();
-
+  test('renders the inputs with default coordinates', async () => {
+    render(<Dashboard />);
+    await screen.findByText(/Last calculated elevation/i);
     const latitudeInput = screen.getByLabelText(/latitude/i);
     const longitudeInput = screen.getByLabelText(/longitude/i);
 
@@ -34,7 +34,7 @@ describe('App Component', () => {
       },
     });
 
-    render(<App />);
+    render(<Dashboard />);
 
     const latitudeInput = await screen.findByLabelText(/latitude/i);
     const longitudeInput = screen.getByLabelText(/longitude/i);
@@ -43,9 +43,10 @@ describe('App Component', () => {
     expect(longitudeInput).toHaveValue(-10.10);
   });
 
-  test('allows valid input values', () => {
-    render(<App />);
+  test('allows valid input values', async () => {
+    render(<Dashboard />);
 
+    await screen.findByText(/Last calculated elevation/i);
     const latitudeInput = screen.getByLabelText(/latitude/i);
     const longitudeInput = screen.getByLabelText(/longitude/i);
 
@@ -56,9 +57,10 @@ describe('App Component', () => {
     expect(longitudeInput).toHaveValue(-1.1);
   });
 
-  test('prevents invalid input values', () => {
-    render(<App />);
+  test('prevents invalid input values', async () => {
+    render(<Dashboard />);
 
+    await screen.findByText(/Last calculated elevation/i);
     const latitudeInput = screen.getByLabelText(/latitude/i);
     const longitudeInput = screen.getByLabelText(/longitude/i);
 
@@ -75,7 +77,7 @@ describe('App Component', () => {
   test('shows correct elevation on submit', async () => {
     mockFetchElevation.mockResolvedValueOnce(100);
 
-    render(<App />);
+    render(<Dashboard />);
 
     const latitudeInput = screen.getByLabelText(/latitude/i);
     const longitudeInput = screen.getByLabelText(/longitude/i);
@@ -89,7 +91,7 @@ describe('App Component', () => {
     expect(mockFetchElevation).toHaveBeenCalledTimes(1);
 
     // Ensure the component is rendered before expecting
-    await screen.findByText(/Elevation calculator app/i);
+    await screen.findByText(/Last calculated elevation/i);
 
     const elevationElement = await screen.findByText(/Last calculated elevation is: 100/i);
     expect(elevationElement).toBeInTheDocument();
@@ -101,7 +103,7 @@ describe('App Component', () => {
       .mockResolvedValueOnce(100)
       .mockResolvedValueOnce(200);
 
-    render(<App />);
+    render(<Dashboard />);
 
     const submitButton = screen.getByText(/calculate elevation/i);
 
@@ -115,7 +117,7 @@ describe('App Component', () => {
 
     const historyItems = screen.getAllByRole('listitem');
     expect(historyItems).toHaveLength(2);
-    expect(historyItems[0]).toHaveTextContent("200");
-    expect(historyItems[1]).toHaveTextContent("100");
+    expect(historyItems[0]).toHaveTextContent("100");
+    expect(historyItems[1]).toHaveTextContent("200");
   });
 });
