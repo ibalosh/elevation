@@ -7,7 +7,7 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model MostRecentElevation {
+model Elevation {
   id        Int      @id @default(autoincrement())
   elevation Float
   lat       Float

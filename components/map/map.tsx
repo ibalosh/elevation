@@ -8,8 +8,6 @@ import { LatLng } from "leaflet";
 import LocationMarker from "./location-marker";
 import { MapContainer, TileLayer } from 'react-leaflet';
 import RecenterMap from "./recenter-map";
-import {useMemo} from "react";
-import dynamic from "next/dynamic";
 import {Coordinate} from "@/components/dashboard";
 
 

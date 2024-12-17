@@ -11,6 +11,7 @@ export async function createElevation(lat:number,lng: number, elevation: number)
     })
     console.log(result);
   } catch (error) {
+    console.error(error);
     await prisma.$disconnect();
     process.exit(1);
   }
