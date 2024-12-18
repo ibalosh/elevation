@@ -20,7 +20,10 @@ Initial location is read from the browser's geolocation API.
 
 # Pre-requisites
 
-To run the app, install the dependencies. 
+To run the app: 
+
+* install node (if you use nvm, you can install the version specified in `.nvmrc` file)
+* install the dependencies by `npm install`. 
 
 # Running the app
 
@@ -28,19 +31,4 @@ Run commands can be found in `package.json` file.
 
 ```bash
  npm run dev # run the app
-<<<<<<< HEAD
 ```
-
-# Further improvement ideas
-
-* error handling can be improved instead of simple alert
-* database can be used to store the history (like suggested prisma)
-* more tests for edge cases like validation of coordinates can be added
-* app can be switched to Next.js for better performance
-
-# Next JS version
-
-Next.js version of the app can be found in the [next-elevation branch](https://github.com/ibalosh/elevation/pull/1)
-=======
-```
->>>>>>> next-elevation
