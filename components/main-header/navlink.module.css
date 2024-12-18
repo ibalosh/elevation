@@ -1,0 +1,22 @@
+.nav {
+    display: flex;
+    justify-content: center;
+    list-style-type: none;
+    margin: 1rem;
+    font-size: 1.2rem;
+}
+
+.link {
+    padding: 1rem;
+    text-decoration: none;
+    font-weight: bold;
+    color: #7c7c7c;
+}
+
+.link:hover {
+    color: #3c3b3b;
+}
+
+.active {
+    color: black;
+}
