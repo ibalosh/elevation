@@ -1,6 +1,6 @@
 import styles from "../page.module.css";
 import {getElevations} from "@/lib/prisma";
-import ElevationsHistory from "@/components/elevation-history";
+import ElevationsHistory from "@/components/history";
 
 export default async function Home() {
   const elevations = await getElevations(20);

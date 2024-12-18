@@ -7,7 +7,6 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "cors": "HOST=localhost node support/cors-anywhere/src/server.js",
     "test": "jest"
   },
   "dependencies": {
@@ -32,6 +31,7 @@
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
+    "@types/jest": "^29.5.14",
     "eslint": "^9",
     "eslint-config-next": "15.1.0",
     "jest": "^29.7.0",

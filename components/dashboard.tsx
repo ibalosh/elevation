@@ -8,7 +8,7 @@ import UserInput from "./user-input";
 import MostRecentElevation from "./most-recent-elevation";
 import MyMap from "@/components/map/my-map";
 import {createElevationAction} from '@/app/actions'
-import ElevationsHistory from "@/components/elevation-history";
+import ElevationsHistory from "@/components/history";
 
 export type Coordinate = {
   lat: number;

@@ -2,7 +2,6 @@ import {render, screen, fireEvent, waitFor} from '@testing-library/react';
 import Dashboard from '../components/dashboard';
 import { fetchElevation } from '@/lib/http';
 import expect from "expect";
-import {getElevations} from "@/lib/prisma";
 
 // Mock the external API
 jest.mock("../lib/http");
